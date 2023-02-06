@@ -1,0 +1,15 @@
+#================== Versao 1 =========================
+# %{MONTHDAY}[-]%{MONTH}[-]%{YEAR} %{TIME} %{PROG:program}: %{LOGLEVEL:level}: client %{GREEDYDATA:offset} %{IP:clientIP}#%{NUMBER:port}: update \'%{HOSTNAME}\' %{WORD:query_status}
+# %{MONTHDAY}-%{MONTH}-%{YEAR} %{TIME} %{PROG:program}: %{LOGLEVEL:level}: client %{GREEDYDATA:offset} %{IP:clientIP}#%{NUMBER:port} \(%{HOSTNAME}\): query: %{HOSTNAME:query} IN %{WORD:query_type} (\-|\+)%{GREEDYDATA:edns_version} \(%{IP:eth_in}
+#==================  Versao 2 ========================
+#BIND9_TIMESTAMP %{MONTHDAY}[-]%{MONTH}[-]%{YEAR} %{TIME}
+#BIND9_QUERY %{PROG:program}: %{LOGLEVEL:loglevel}: client %{GREEDYDATA:offset} %{IP:clientIP}#%{NUMBER:port} \(%{HOSTNAME}\): query: %{HOSTNAME:query} IN %{WORD:query_type} (\-|\+)%{GREEDYDATA:edns_version} \(%{IP:eth_in}
+#BIND9_UPDATE %{PROG:program}: %{LOGLEVEL:level}: client %{GREEDYDATA:offset} %{IP:clientIP}#%{NUMBER:port}: update \'%{HOSTNAME:hostname}\' %{WORD:status}
+#BIND9 %{BIND9_TIMESTAMP:timestamp}
+#==================  Versao 3 ========================
+BIND9_TIMESTAMP %{MONTHDAY}[-]%{MONTH}[-]%{YEAR} %{TIME}
+BIND9_BASE %{PROG:program}: %{LOGLEVEL:loglevel}: client %{GREEDYDATA:offset}
+BIND9_QUERY %{IP:clientIP}#%{NUMBER:port} \(%{HOSTNAME}\): query: %{HOSTNAME:query} IN %{WORD:query_type} (\-|\+)%{GREEDYDATA:edns_version} \(%{IP:eth_in}
+BIND9_UPDATE %{IP:clientIP}#%{NUMBER:port}: update \'%{HOSTNAME:hostname}\' %{WORD:status}
+BIND9_SEC %{IP:clientIP}#%{NUMBER:port} \(%{HOSTNAME}\): query \(%{WORD:query_type}\) \'%{HOSTNAME:hostname}\' %{WORD:status}
+BIND9 %{BIND9_TIMESTAMP:timestamp} %{BIND9_BASE}
